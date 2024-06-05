@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  php:
+    image: php:8.2-alpine
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+    container_name: faveo-app
