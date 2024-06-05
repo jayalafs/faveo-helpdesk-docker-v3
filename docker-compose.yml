@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      container_name: app-faveo
     volumes:
       - ./app:/var/www/html
     ports:
