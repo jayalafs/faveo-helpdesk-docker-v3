@@ -2,17 +2,48 @@ version: '3.8'
 
 services:
   php-apache:
-    build:
-      context: .
-      dockerfile: Dockerfile
-      container_name: app-faveo
-    volumes:
-      - ./app:/var/www/html
+    container_name: app-faveo
+    image: php:8.1-apache
+    networks:
+      faveo-network:
+        ipv4_address: 172.24.2.1
     ports:
       - "8080:80"
+    volumes:
+      - app-volume:/var/www/html/
+    restart: always
+
+  faveo-mariadb:
+    image: mariadb:10.6
+    container_name: mariadb-faveo
+    volumes:
+      - db-volume:/var/lib/mysql
     networks:
-      - app-network
+      faveo-network:
+        ipv4_address: 172.24.2.2
+    environment:
+      MYSQL_DATABASE: faveo
+      MYSQL_USER: faveo
+      MYSQL_PASSWORD: Adm!202
+      MYSQL_ROOT_PASSWORD: Adm!202
+    restart: on-failure
+
+  faveo-redis:
+    image: redis
+    container_name: redis-faveo
+    restart: always
+    networks:
+      faveo-network:
+        ipv4_address: 172.24.2.3
 
 networks:
-  app-network:
+  faveo-network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.24.0.0/16
+
+volumes:
+  db-volume:
+  app-volume:
+    driver: local
