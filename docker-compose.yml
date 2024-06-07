@@ -3,7 +3,9 @@ version: '3.8'
 services:
   php-apache:
     container_name: app-faveo
-    image: php:8.1-apache
+    build: 
+      context: .
+      dockerfile: Dockerfile
     networks:
       faveo-network:
         ipv4_address: 172.24.2.1
