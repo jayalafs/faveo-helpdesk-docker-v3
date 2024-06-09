@@ -23,12 +23,20 @@ RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     libzip-dev \
     libmemcached-dev \
+    cron \
+    git \
+    wget \
+    curl \
+    unzip \
+    nano \
     libonig-dev \
+    wkhtmltopdf \
+    libfcgi0ldbl \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Configurar la extensión GD e IMAP
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-configure imap --with-kerberos --with-imap-ssl
+RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
+    docker-php-ext-configure imap --with-kerberos --with-imap-ssl
 
 # Instalar las extensiones de PHP
 RUN docker-php-ext-install -j$(nproc) \
@@ -51,8 +59,14 @@ RUN docker-php-ext-install -j$(nproc) \
 # Instalar y habilitar la extensión memcached
 RUN pecl install memcached && docker-php-ext-enable memcached
 
+# Instalar y habilitar la extensión Redis
+RUN pecl install redis && docker-php-ext-enable redis
+
 # Habilitar mod_rewrite
 RUN a2enmod rewrite
 
 # Exponer el puerto 80
 EXPOSE 80
+
+# Comando para iniciar Apache en el contenedor
+CMD ["apache2-foreground"]
