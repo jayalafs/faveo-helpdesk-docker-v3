@@ -62,6 +62,9 @@ RUN pecl install memcached && docker-php-ext-enable memcached
 # Instalar y habilitar la extensión Redis
 RUN pecl install redis && docker-php-ext-enable redis
 
+# Copiar el archivo php.ini
+COPY ./src/php.ini /usr/local/etc/php/php.ini
+
 # Habilitar mod_rewrite
 RUN a2enmod rewrite
 
