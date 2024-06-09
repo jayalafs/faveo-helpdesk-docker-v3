@@ -83,20 +83,10 @@ RUN PHP_EXTENSION_DIR=$(php -i | grep "extension_dir" | awk '{print $3}') && \
     cp ioncube/ioncube_loader_lin_8.2.so "$PHP_EXTENSION_DIR" && \
     echo "zend_extension=\"$PHP_EXTENSION_DIR/ioncube_loader_lin_8.2.so\"" >> /usr/local/etc/php/php.ini
 
-# Descargar Faveo Helpdesk desde GitHub
-RUN git clone https://github.com/ladybirdweb/faveo-helpdesk.git
-RUN mv faveo-helpdesk /var/www/html/faveo
-
-# Crear la carpeta faveo y establecer permisos
-RUN chown -R 33:33 /var/www/html/faveo && \
-    find /var/www/html/faveo -type f -exec chmod 644 {} \; && \
-    find /var/www/html/faveo -type d -exec chmod 755 {} \;
 
 # Configurar Apache para utilizar el sitio Faveo
-RUN a2ensite faveo.conf && \
-    a2dissite 000-default.conf && \
-    a2enmod rewrite
-    
+RUN a2enmod rewrite
+
 # Exponer el puerto 80
 EXPOSE 80
 
