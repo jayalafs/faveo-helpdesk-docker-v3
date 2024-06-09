@@ -71,7 +71,7 @@ RUN pecl install redis && docker-php-ext-enable redis
 COPY ./src/php.ini /usr/local/etc/php/php.ini
 
 # Copiar el código de Faveo y la configuración de Apache
-COPY ./src/faveo.conf /etc/apache2/sites-available/
+COPY ./src/faveo.conf /etc/apache2/sites-available/faveo.conf
 
 # Descargar ionCube y descomprimirlo
 RUN wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz && \
