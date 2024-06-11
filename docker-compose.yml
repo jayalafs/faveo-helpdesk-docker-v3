@@ -21,7 +21,6 @@ services:
     container_name: mariadb-faveo
     volumes:
       - db-volume:/var/lib/mysql
-      - ./src/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       faveo-network:
         ipv4_address: 172.24.2.2
@@ -42,7 +41,6 @@ services:
 
 networks:
   faveo-network:
-    name: faveo-network
     driver: bridge
     ipam:
       config:
@@ -50,7 +48,5 @@ networks:
 
 volumes:
   db-volume:
-    name: db-volume
   app-volume:
-    name: app-volume
     driver: local
