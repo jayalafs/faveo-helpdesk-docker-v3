@@ -4,9 +4,6 @@
 FROM php:8.2-apache
 
 # Actualizar el sistema y los repositorios
-RUN apt-get update && apt-get upgrade -y
-
-# Actualizar el sistema y los repositorios
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
@@ -82,7 +79,6 @@ RUN wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-
 RUN PHP_EXTENSION_DIR=$(php -i | grep "extension_dir" | awk '{print $3}') && \
     cp ioncube/ioncube_loader_lin_8.2.so "$PHP_EXTENSION_DIR" && \
     echo "zend_extension=\"$PHP_EXTENSION_DIR/ioncube_loader_lin_8.2.so\"" >> /usr/local/etc/php/php.ini
-
 
 # Configurar Apache para utilizar el sitio Faveo
 RUN a2enmod rewrite
