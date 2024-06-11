@@ -81,14 +81,6 @@ RUN PHP_EXTENSION_DIR=$(php -i | grep "extension_dir" | awk '{print $3}') && \
     echo "zend_extension=\"$PHP_EXTENSION_DIR/ioncube_loader_lin_8.2.so\"" >> /usr/local/etc/php/php.ini && \
     rm -rf ioncube
 
-# Instalar y habilitar la extensión FPM
-RUN docker-php-ext-install -j$(nproc) fpm
-
-# Configurar Apache para PHP-FPM
-COPY ./src/php8.2-fpm.conf /etc/apache2/conf-available/php8.2-fpm.conf
-RUN a2enmod proxy_fcgi setenvif && \
-    a2enconf php8.2-fpm
-
 # Descargar Faveo Helpdesk desde GitHub
 RUN git clone https://github.com/ladybirdweb/faveo-helpdesk.git /var/www/html/faveo
 
