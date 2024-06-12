@@ -53,11 +53,12 @@ RUN wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-
     tar xvfz ioncube_loaders_lin_x86-64.tar.gz && \
     rm ioncube_loaders_lin_x86-64.tar.gz
 
-# Configurar ionCube
+# Configurar ionCube Loader en PHP
 RUN PHP_EXTENSION_DIR=$(php -i | grep "extension_dir" | awk '{print $3}') && \
     cp ioncube/ioncube_loader_lin_8.1.so "$PHP_EXTENSION_DIR" && \
     echo "zend_extension=$PHP_EXTENSION_DIR/ioncube_loader_lin_8.1.so" >> /etc/php/8.1/fpm/php.ini && \
-    echo "zend_extension=$PHP_EXTENSION_DIR/ioncube_loader_lin_8.1.so" >> /etc/php/8.1/cli/php.ini
+    echo "zend_extension=$PHP_EXTENSION_DIR/ioncube_loader_lin_8.1.so" >> /etc/php/8.1/cli/php.ini && \
+    echo "zend_extension=$PHP_EXTENSION_DIR/ioncube_loader_lin_8.1.so" >> /etc/php/8.1/apache2/php.ini
 
 # Descargar Faveo Helpdesk desde GitHub
 RUN git clone https://github.com/ladybirdweb/faveo-helpdesk.git /var/www/html/faveo
@@ -83,4 +84,4 @@ RUN (crontab -l -u www-data 2>/dev/null; echo "* * * * * /usr/bin/php /var/www/h
 EXPOSE 80
 
 # Comando por defecto para mantener el contenedor en ejecución
-CMD ["tail", "-f", "/dev/null"]
+CMD ["service", "php8.1-fpm", "start", "&&", "service", "apache2", "start", "&&", "cron", "&&", "tail", "-f", "/dev/null"]
