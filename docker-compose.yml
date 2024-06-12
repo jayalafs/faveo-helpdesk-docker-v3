@@ -6,7 +6,7 @@ services:
     build: 
       context: .
       dockerfile: Dockerfile
-    image: faveo-php-apache:latest
+    image: app-faveo
     networks:
       faveo-network:
         ipv4_address: 172.24.2.1
@@ -41,6 +41,7 @@ services:
 
 networks:
   faveo-network:
+    name: faveo-network
     driver: bridge
     ipam:
       config:
@@ -48,5 +49,7 @@ networks:
 
 volumes:
   db-volume:
+    name: db-volume
   app-volume:
+    name: app-volume
     driver: local
