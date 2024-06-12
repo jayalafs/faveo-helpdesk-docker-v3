@@ -60,8 +60,7 @@ RUN PHP_EXTENSION_DIR=$(php -i | grep "extension_dir" | awk '{print $3}') && \
     echo "zend_extension=$PHP_EXTENSION_DIR/ioncube_loader_lin_8.1.so" >> /etc/php/8.1/cli/php.ini
 
 # Descargar Faveo Helpdesk desde GitHub
-RUN git clone https://github.com/ladybirdweb/faveo-helpdesk.git && \
-    mv faveo-helpdesk /var/www/html/faveo
+RUN git clone https://github.com/ladybirdweb/faveo-helpdesk.git /var/www/html/faveo
 
 # Establecer permisos
 RUN chown -R www-data:www-data /var/www/html/faveo && \
