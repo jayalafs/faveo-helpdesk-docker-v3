@@ -61,12 +61,12 @@ RUN PHP_EXTENSION_DIR=$(php -i | grep "extension_dir" | awk '{print $3}') && \
     echo "zend_extension=$PHP_EXTENSION_DIR/ioncube_loader_lin_8.1.so" >> /etc/php/8.1/apache2/php.ini
 
 # Descargar Faveo Helpdesk desde GitHub
-RUN git clone https://github.com/ladybirdweb/faveo-helpdesk.git /var/www/html/faveo
+RUN git clone https://github.com/ladybirdweb/faveo-helpdesk.git /var/www/faveo
 
 # Establecer permisos
-RUN chown -R www-data:www-data /var/www/html/faveo && \
-    find /var/www/html/faveo -type f -exec chmod 644 {} \; && \
-    find /var/www/html/faveo -type d -exec chmod 755 {} \;
+RUN chown -R www-data:www-data /var/www/faveo && \
+    find /var/www/faveo -type f -exec chmod 644 {} \; && \
+    find /var/www/faveo -type d -exec chmod 755 {} \;
 
 # Configurar Apache para utilizar el sitio Faveo
 RUN a2enmod rewrite && \
@@ -78,7 +78,7 @@ RUN a2enmod rewrite && \
     service apache2 restart
 
 # Configurar cron para www-data
-RUN (crontab -l -u www-data 2>/dev/null; echo "* * * * * /usr/bin/php /var/www/html/faveo/artisan schedule:run >> /var/log/cron.log 2>&1") | crontab -u www-data -
+RUN (crontab -l -u www-data 2>/dev/null; echo "* * * * * /usr/bin/php /var/www/faveo/artisan schedule:run >> /var/log/cron.log 2>&1") | crontab -u www-data -
 
 # Exponer el puerto 80
 EXPOSE 80

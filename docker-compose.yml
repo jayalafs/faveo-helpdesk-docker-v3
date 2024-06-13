@@ -13,7 +13,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - app-volume:/var/www/html/
+      - app-volume:/var/www/
     restart: always
 
   faveo-mariadb:
