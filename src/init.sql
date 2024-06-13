@@ -1,2 +1,2 @@
-GRANT ALL ON faveo.* TO 'faveo'@'%';
+GRANT ALL ON faveo.* TO 'faveo'@'localhost';
 FLUSH PRIVILEGES;

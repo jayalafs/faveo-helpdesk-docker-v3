@@ -48,6 +48,9 @@ COPY ./src/php.ini /etc/php/8.1/cli/php.ini
 # Copiar la configuración de Apache para Faveo
 COPY ./src/faveo.conf /etc/apache2/sites-available/faveo.conf
 
+# Configurar el nombre del servidor globalmente en apache2.conf
+RUN echo "ServerName 172.24.2.1" >> /etc/apache2/apache2.conf
+
 # Descargar ionCube y descomprimirlo
 RUN wget http://downloads3.ioncube.com/loader_downloads/ioncube_loaders_lin_x86-64.tar.gz && \
     tar xvfz ioncube_loaders_lin_x86-64.tar.gz && \
