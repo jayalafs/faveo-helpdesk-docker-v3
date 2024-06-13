@@ -84,4 +84,4 @@ RUN (crontab -l -u www-data 2>/dev/null; echo "* * * * * /usr/bin/php /var/www/f
 EXPOSE 80
 
 # Comando por defecto para mantener el contenedor en ejecución
-CMD ["service", "php8.1-fpm", "start", "&&", "service", "apache2", "start", "&&", "cron", "&&", "tail", "-f", "/dev/null"]
+CMD ["sh", "-c", "service php8.1-fpm start && service apache2 start && cron && tail -f /dev/null"]
