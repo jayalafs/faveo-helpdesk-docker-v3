@@ -11,7 +11,7 @@ services:
       faveo-network:
         ipv4_address: 172.24.2.1
     ports:
-      - "8080:80"
+      - "8282:80"
     volumes:
       - app-volume:/var/www/
     restart: always
