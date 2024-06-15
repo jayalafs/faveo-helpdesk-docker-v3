@@ -26,10 +26,10 @@ services:
       faveo-network:
         ipv4_address: 172.24.2.2
     environment:
-      MYSQL_DATABASE: ${DB_DATABASE}
-      MYSQL_USER: ${DB_USERNAME}
-      MYSQL_PASSWORD: ${DB_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: faveo
+      MYSQL_USER: faveo
+      MYSQL_PASSWORD: Adm!202
+      MYSQL_ROOT_PASSWORD: Adm!202
     restart: on-failure
 
   faveo-redis:
@@ -44,7 +44,7 @@ networks:
   faveo-network:
     name: faveo-network
     driver: bridge
-    ipam:
+    ipam:x
       config:
         - subnet: 172.24.0.0/16
 
