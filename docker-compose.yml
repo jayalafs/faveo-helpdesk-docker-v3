@@ -16,21 +16,21 @@ services:
       - app-volume:/var/www/
     restart: always
 
-  faveo-mariadb:
-    image: mysql:8.0
-    container_name: mysql-faveo
-    volumes:
-      - db-volume:/var/lib/mysql
-      - ./src/init.sql:/docker-entrypoint-initdb.d/init.sql
-    networks:
-      faveo-network:
-        ipv4_address: 172.24.2.2
-    environment:
-      MYSQL_DATABASE: faveo
-      MYSQL_USER: faveo
-      MYSQL_PASSWORD: Adm!202
-      MYSQL_ROOT_PASSWORD: Adm!202
-    restart: on-failure
+faveo-mariadb:
+  image: mysql:8.0
+  container_name: mysql-faveo
+  volumes:
+    - db-volume:/var/lib/mysql
+    - ./src/init.sql:/docker-entrypoint-initdb.d/init.sql
+  networks:
+    faveo-network:
+      ipv4_address: 172.24.2.2
+  environment:
+    MYSQL_DATABASE: faveo
+    MYSQL_USER: faveo
+    MYSQL_PASSWORD: Adm!202
+    MYSQL_ROOT_PASSWORD: Adm!202
+  restart: on-failure
 
   faveo-redis:
     image: redis
