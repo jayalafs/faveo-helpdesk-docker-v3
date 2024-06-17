@@ -71,8 +71,8 @@ RUN chown -R www-data:www-data /var/www/faveo && \
     find /var/www/faveo -type f -exec chmod 644 {} \; && \
     find /var/www/faveo -type d -exec chmod 755 {} \;
 
-# Configuracion para backup
-RUN mkdir -p /var/www/storage \
+# Configuración para backup
+RUN mkdir -p /var/www/storage && \
     chown -R www-data:www-data /var/www/storage && \
     find /var/www/faveo -type f -exec chmod 644 {} \; && \
     find /var/www/faveo -type d -exec chmod 755 {} \;
