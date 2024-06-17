@@ -66,8 +66,14 @@ RUN PHP_EXTENSION_DIR=$(php -i | grep "extension_dir" | awk '{print $3}') && \
 # Descargar Faveo Helpdesk desde GitHub
 RUN git clone https://github.com/ladybirdweb/faveo-helpdesk.git /var/www/faveo
 
-# Establecer permisos
+# Establecer permisos para la app
 RUN chown -R www-data:www-data /var/www/faveo && \
+    find /var/www/faveo -type f -exec chmod 644 {} \; && \
+    find /var/www/faveo -type d -exec chmod 755 {} \;
+
+# Configuracion para backup
+RUN mkdir -p /var/www/storage \
+    chown -R www-data:www-data /var/www/storage && \
     find /var/www/faveo -type f -exec chmod 644 {} \; && \
     find /var/www/faveo -type d -exec chmod 755 {} \;
 
