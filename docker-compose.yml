@@ -9,7 +9,7 @@ services:
     image: app-faveo
     networks:
       faveo-network:
-        ipv4_address: 172.24.2.1
+        ipv4_address: 172.24.2.10
     ports:
       - "8282:80"
     volumes:
@@ -24,7 +24,7 @@ services:
       - ./src/init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       faveo-network:
-        ipv4_address: 172.24.2.2
+        ipv4_address: 172.24.2.11
     environment:
       MYSQL_DATABASE: faveo
       MYSQL_USER: faveo
@@ -38,7 +38,7 @@ services:
     restart: always
     networks:
       faveo-network:
-        ipv4_address: 172.24.2.3
+        ipv4_address: 172.24.2.12
 
 networks:
   faveo-network:
