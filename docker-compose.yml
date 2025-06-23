@@ -43,10 +43,13 @@ services:
 networks:
   faveo-network:
     name: faveo-network
+    attachable: true
     driver: bridge
     ipam:
       config:
-        - subnet: 172.24.0.0/24
+        - subnet: 172.24.2.0/24
+          ip_range: 172.24.2.0/24
+          gateway: 172.24.2.254
 
 volumes:
   db-volume:
